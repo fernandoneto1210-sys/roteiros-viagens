@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Roteiros Oficina de Turismo · 2026 / 2027</title>
+  <meta name="description" content="Escolha seu próximo roteiro em grupo com acompanhamento desde o Brasil: Tailândia, Atacama, Escandinávia, Malta e Grand Amazon.">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --gold:        #C9A84C;
+      --dark:        #1B2A3A;
+      --light:       #F4F7F9;
+      --text-dark:   #1E2D3A;
+      --text-light:  #5A6E7D;
+      --card-bg:     #FFFFFF;
+      --shadow-soft: 0 10px 30px rgba(0,0,0,.1);
+      --accent-blue: #4A7FA5;
+      --accent-green:#3D6B5E;
+      --accent-pink: #D57A9A;
+    }
+
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      font-family:'Poppins',sans-serif;
+      background:radial-gradient(circle at top, #eef4ff 0, #f4f7f9 45%, #edf3f6 100%);
+      color:var(--text-dark);
+    }
+
+    /* NAV */
+    nav {
+      position:fixed; top:0; left:0; right:0; z-index:999;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:10px 28px;
+      background:rgba(27,42,58,0.96);
+      backdrop-filter:blur(10px);
+      box-shadow:0 2px 18px rgba(0,0,0,.25);
+    }
+    nav img { height:52px; }
+    nav ul { list-style:none; display:flex; gap:20px; flex-wrap:wrap; }
+    nav ul li a {
+      color:#ddd; text-decoration:none; font-size:.8rem;
+      font-weight:500; letter-spacing:.5px; transition:color .3s;
+    }
+    nav ul li a:hover { color:var(--gold); }
+
+    /* HERO */
+    .hero {
+      min-height:70vh;
+      padding:120px 20px 60px;
+      display:flex; flex-direction:column; align-items:center; text-align:center;
+      position:relative; overflow:hidden;
+    }
+    .hero::before {
+      content:''; position:absolute; inset:0;
+      background:
+        radial-gradient(circle at 15% 10%, rgba(255,255,255,.5) 0, transparent 45%),
+        radial-gradient(circle at 85% 20%, rgba(201,168,76,.15) 0, transparent 55%),
+        radial-gradient(circle at 50% 100%, rgba(74,127,165,.18) 0, transparent 60%);
+      pointer-events:none;
+    }
+    .hero > * { position:relative; z-index:1; }
+
+    .hero-logo {
+      width:240px;
+      margin-bottom:18px;
+      filter:drop-shadow(0 4px 16px rgba(0,0,0,.45));
+    }
+    .hero-kicker {
+      font-size:.8rem; font-weight:600; letter-spacing:3px;
+      text-transform:uppercase; color:var(--gold); margin-bottom:6px;
+    }
+    .hero h1 {
+      font-family:'Playfair Display',serif;
+      font-size:clamp(2.1rem,5vw,3.4rem);
+      color:var(--dark);
+      letter-spacing:1px;
+    }
+    .hero h1 span { color:var(--accent-blue); }
+    .hero-subtitle {
+      font-size:clamp(.96rem,2.2vw,1.2rem);
+      color:var(--text-light);
+      margin-top:10px;
+      max-width:620px;
+    }
+    .hero-pill {
+      display:inline-flex; align-items:center; gap:8px;
+      margin-top:18px;
+      padding:8px 18px;
+      border-radius:999px;
+      background:rgba(255,255,255,.85);
+      border:1px solid rgba(0,0,0,.06);
+      font-size:.82rem;
+      color:var(--text-dark);
+      box-shadow:0 4px 14px rgba(0,0,0,.08);
+    }
+
+    /* GRID DE CARDS */
+    .section-wrapper {
+      padding:10px 20px 70px;
+      max-width:1200px;
+      margin:0 auto;
+    }
+    .section-header {
+      display:flex; justify-content:space-between; align-items:flex-end;
+      gap:16px; margin-bottom:26px; flex-wrap:wrap;
+    }
+    .section-header h2 {
+      font-family:'Playfair Display',serif;
+      font-size:clamp(1.6rem,3vw,2.2rem);
+      color:var(--dark);
+    }
+    .section-header p {
+      font-size:.9rem; color:var(--text-light); max-width:420px;
+    }
+
+    .cards-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:24px;
+    }
+    .trip-card {
+      background:var(--card-bg);
+      border-radius:20px;
+      overflow:hidden;
+      box-shadow:var(--shadow-soft);
+      display:flex;
+      flex-direction:column;
+      transition:transform .25s, box-shadow .25s;
+      cursor:pointer;
+      text-decoration:none;
+      color:inherit;
+      position:relative;
+    }
+    .trip-card:hover {
+      transform:translateY(-6px);
+      box-shadow:0 16px 40px rgba(0,0,0,.18);
+    }
+    .trip-image {
+      width:100%;
+      height:180px;
+      object-fit:cover;
+    }
+    .trip-body {
+      padding:18px 18px 16px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      flex:1;
+    }
+    .trip-tags {
+      display:flex;
+      flex-wrap:wrap;
+      gap:6px;
+      font-size:.7rem;
+    }
+    .trip-tag {
+      padding:4px 10px;
+      border-radius:999px;
+      background:#eef3f8;
+      color:var(--text-dark);
+      font-weight:500;
+    }
+    .trip-tag.blue { background:rgba(74,127,165,.12); color:var(--accent-blue); }
+    .trip-tag.green { background:rgba(61,107,94,.12); color:var(--fjord-green); }
+    .trip-tag.gold { background:rgba(201,168,76,.16); color:var(--gold); }
+    .trip-tag.pink { background:rgba(213,122,154,.12); color:var(--accent-pink); }
+
+    .trip-title {
+      font-family:'Playfair Display',serif;
+      font-size:1.15rem;
+      color:var(--dark);
+    }
+    .trip-meta {
+      font-size:.82rem;
+      color:var(--text-light);
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+    .trip-meta span { display:inline-flex; align-items:center; gap:4px; }
+
+    .trip-cta {
+      margin-top:auto;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      font-size:.78rem;
+      color:var(--accent-blue);
+      font-weight:600;
+    }
+    .trip-cta span { display:inline-flex; align-items:center; gap:6px; }
+    .chip {
+      padding:4px 10px;
+      border-radius:999px;
+      background:#f0f4f7;
+      color:var(--text-light);
+      font-size:.75rem;
+    }
+
+    /* FOOTER */
+    footer {
+      background:#101722;
+      color:#999;
+      text-align:center;
+      padding:30px 20px 36px;
+      font-size:.82rem;
+      margin-top:10px;
+    }
+    footer img { height:42px; margin-bottom:10px; filter:drop-shadow(0 2px 8px rgba(0,0,0,.6)); }
+    footer a { color:#ddd; text-decoration:none; }
+    footer a:hover { color:var(--gold); }
+
+    /* RESPONSIVO */
+    @media(max-width:768px) {
+      nav { padding:10px 18px; }
+      nav img { height:46px; }
+      nav ul { display:none; } /* se quiser menu mobile depois, a gente cria */
+      .hero { padding:110px 16px 50px; }
+      .hero-logo { width:200px; }
+      .section-wrapper { padding:10px 16px 60px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <img src="Logo fundo transparente.png" alt="Oficina de Turismo"/>
+  <ul>
+    <li><a href="#roteiros">Roteiros</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <img src="Logo fundo transparente.png" alt="Oficina de Turismo" class="hero-logo"/>
+  <div class="hero-kicker">VIAGENS EM GRUPO · 2026 / 2027</div>
+  <h1>Escolha o seu próximo <span>roteiro inesquecível</span></h1>
+  <p class="hero-subtitle">
+    Tailândia, Atacama, Escandinávia, Malta e Grand Amazon. Roteiros em grupo,
+    acompanhados desde o Brasil, com experiências cuidadosamente selecionadas para você.
+  </p>
+  <div class="hero-pill">
+    <span>✨ Acompanhamento desde o Brasil</span>
+    <span>·</span>
+    <span>🌍 Grupos reduzidos</span>
+  </div>
+</section>
+
+<!-- GRID DE ROTEIROS -->
+<div class="section-wrapper" id="roteiros">
+  <div class="section-header">
+    <h2>Roteiros disponíveis</h2>
+    <p>
+      Clique no roteiro para ver a página completa com o dia a dia, hotéis, valores,
+      voos previstos e todas as experiências incluídas.
+    </p>
+  </div>
+
+  <div class="cards-grid">
+
+    <!-- TAILÂNDIA -->
+    <a class="trip-card" href="https://fernandoneto1210-sys.github.io/Tailandia-2027/" target="_blank" rel="noopener">
+      <img src="tailandia-capa.jpg" alt="Tailândia Mágica 2027" class="trip-image"/>
+      <div class="trip-body">
+        <div class="trip-tags">
+          <span class="trip-tag.gold">Nova Turma</span>
+          <span class="trip-tag.blue">Grupo com Acompanhamento</span>
+        </div>
+        <h3 class="trip-title">Tailândia Mágica 2027</h3>
+        <div class="trip-meta">
+          <span>📅 07 a 20 de Março de 2027</span>
+          <span>·</span>
+          <span>🇹🇭 Bangkok · Chiang Mai · Phi Phi · Phuket</span>
+        </div>
+        <p style="font-size:.84rem;color:var(--text-light);margin-top:6px;">
+          Templos, mercados, elefantes, ilhas paradisíacas e um roteiro completo pelo melhor da Tailândia.
+        </p>
+        <div class="trip-cta">
+          <span>Ver roteiro completo</span>
+          <span class="chip">13 dias · 11 noites</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- ATACAMA -->
+    <a class="trip-card" href="https://fernandoneto1210-sys.github.io/atacama-2026/" target="_blank" rel="noopener">
+      <img src="atacama-capa.jpg" alt="Belezas do Atacama 2026" class="trip-image"/>
+      <div class="trip-body">
+        <div class="trip-tags">
+          <span class="trip-tag.green">Semana do Saco Cheio</span>
+          <span class="trip-tag.blue">Grupo Confirmando</span>
+        </div>
+        <h3 class="trip-title">Belezas do Atacama 2026</h3>
+        <div class="trip-meta">
+          <span>📅 10 a 16 de Outubro de 2026</span>
+          <span>·</span>
+          <span>🇨🇱 San Pedro de Atacama</span>
+        </div>
+        <p style="font-size:.84rem;color:var(--text-light);margin-top:6px;">
+          Lagunas Altiplânicas, Geysers del Tatio, Vale da Lua, Termas de Puritama e o deserto mais árido do mundo.
+        </p>
+        <div class="trip-cta">
+          <span>Ver roteiro completo</span>
+          <span class="chip">6 dias · 5 noites</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- ESCANDINÁVIA -->
+    <a class="trip-card" href="https://fernandoneto1210-sys.github.io/escandinavia-2027/" target="_blank" rel="noopener">
+      <img src="escandinavia-capa.jpg" alt="Maravilhas da Escandinávia 2027" class="trip-image"/>
+      <div class="trip-body">
+        <div class="trip-tags">
+          <span class="trip-tag.blue">Novidade</span>
+          <span class="trip-tag.green">Fiordes & Cidades</span>
+        </div>
+        <h3 class="trip-title">Maravilhas da Escandinávia 2027</h3>
+        <div class="trip-meta">
+          <span>📅 27 de Maio a 07 de Junho de 2027</span>
+          <span>·</span>
+          <span>🇸🇪 🇳🇴 🇩🇰 Estocolmo · Bergen · Oslo · Copenhague</span>
+        </div>
+        <p style="font-size:.84rem;color:var(--text-light);margin-top:6px;">
+          Fiordes, cruzeiro nórdico, cidades históricas e paisagens inesquecíveis em três países escandinavos.
+        </p>
+        <div class="trip-cta">
+          <span>Ver roteiro completo</span>
+          <span class="chip">12 dias</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- MALTA -->
+    <a class="trip-card" href="https://fernandoneto1210-sys.github.io/malta-2027/" target="_blank" rel="noopener">
+      <img src="malta-capa.jpg" alt="Experiência Malta 2027" class="trip-image"/>
+      <div class="trip-body">
+        <div class="trip-tags">
+          <span class="trip-tag.pink">Em breve</span>
+          <span class="trip-tag.blue">Idiomas & Cultura</span>
+        </div>
+        <h3 class="trip-title">Experiência Malta 2027</h3>
+        <div class="trip-meta">
+          <span>🗓 Lançamento em breve</span>
+          <span>·</span>
+          <span>🇲🇹 Idiomas · Mediterrâneo</span>
+        </div>
+        <p style="font-size:.84rem;color:var(--text-light);margin-top:6px;">
+          Imersão em inglês, história milenar, mar azul turquesa e um dos menores e mais fascinantes países da Europa.
+        </p>
+        <div class="trip-cta">
+          <span>Ver prévia do roteiro</span>
+          <span class="chip">Novidade 2027</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- GRAND AMAZON -->
+    <a class="trip-card" href="https://fernandoneto1210-sys.github.io/grand-amazon/" target="_blank" rel="noopener">
+      <img src="grand-amazon-capa.jpg" alt="Grand Amazon Expedition" class="trip-image"/>
+      <div class="trip-body">
+        <div class="trip-tags">
+          <span class="trip-tag.green">Tudo Incluído</span>
+          <span class="trip-tag.blue">Cruzeiro de Luxo</span>
+        </div>
+        <h3 class="trip-title">Grand Amazon Expedition</h3>
+        <div class="trip-meta">
+          <span>🚢 Cruzeiro pelo Rio Negro</span>
+          <span>·</span>
+          <span>🇧🇷 Amazônia Brasileira</span>
+        </div>
+        <p style="font-size:.84rem;color:var(--text-light);margin-top:6px;">
+          Cruzeiro 5 estrelas pelo coração da Amazônia, com expedições diurnas e noturnas, gastronomia local e tudo incluído.
+        </p>
+        <div class="trip-cta">
+          <span>Ver roteiro completo</span>
+          <span class="chip">Datas sob consulta</span>
+        </div>
+      </div>
+    </a>
+
+  </div>
+</div>
+
+<!-- ══════════ CONTATO / RODAPÉ ══════════ -->
+<footer id="contato">
+  <img src="Logo fundo transparente.png" alt="Oficina de Turismo"/>
+  <p>
+    📱 <a href="tel:+5535988622943">(35) 98862-2943</a>
+    &nbsp;·&nbsp;
+    📧 <a href="mailto:oficinadeturismo@oficinatur.com.br">oficinadeturismo@oficinatur.com.br</a>
+    &nbsp;·&nbsp;
+    📸 <a href="https://instagram.com/oficinadeturismo" target="_blank">@oficinadeturismo</a>
+  </p>
+  <p style="margin-top:10px;">© 2027 Oficina de Turismo · Todos os direitos reservados.</p>
+  <p style="margin-top:4px;color:#777;">Informações e roteiros sujeitos a alteração sem aviso prévio.</p>
+</footer>
+
+</body>
+</html>
